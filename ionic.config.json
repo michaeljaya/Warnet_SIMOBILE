@@ -1,0 +1,7 @@
+{
+  "name": "Warnet_SIMOBILE",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
