@@ -8,25 +8,19 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class AppComponent {
-  constructor(private router: Router) {
-    this.initializeApp(); // Panggil fungsi tema saat aplikasi pertama kali dilaunching
-  }
+  constructor(private router: Router) { }
 
-  initializeApp() {
-    //Untuk sebelumnya pengguna pernah menyimpan setelan gelap
-    const prefersDark = localStorage.getItem('darkMode');
-
-    if (prefersDark === 'true') {
-      document.body.classList.add('dark');
-      document.documentElement.classList.add('ion-palette-dark'); // Jika iya, jadikan gelap
-    } else {
-      document.body.classList.remove('dark');
-      document.documentElement.classList.remove('ion-palette-dark');
-      localStorage.setItem('darkMode', 'false');
+  logoutButtons = [
+    {
+      text: 'Batal',    // Tombol batal: tidak melakukan apa-apa
+      role: 'cancel'
+    },
+    {
+      text: 'Ya, Keluar',
+      handler: () => {
+        // Redirect ke dashboard (simulasi logout, belum ada auth)
+        this.router.navigate(['/dashboard']);
+      }
     }
-  }
-
-  logout() {
-    this.router.navigate(['/dashboard']);
-  }
+  ];
 }

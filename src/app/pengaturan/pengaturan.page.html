@@ -6,13 +6,19 @@
     <ion-title>Pengaturan</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
   <ion-list>
+    <!-- Toggle Mode Gelap -->
     <ion-item>
       <ion-icon name="moon" slot="start"></ion-icon>
       <ion-label>Mode Gelap</ion-label>
-      <ion-toggle [checked]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+      <ion-toggle [checked]="modeGelap" (ionChange)="toggleGelap()"></ion-toggle>
+    </ion-item>
+    <!-- Toggle Mode Terang -->
+    <ion-item>
+      <ion-icon name="sunny" slot="start"></ion-icon>
+      <ion-label>Mode Terang</ion-label>
+      <ion-toggle [checked]="modeTerang" (ionChange)="toggleTerang()"></ion-toggle>
     </ion-item>
   </ion-list>
 </ion-content>

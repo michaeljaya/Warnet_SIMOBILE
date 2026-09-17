@@ -8,26 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PengaturanPage implements OnInit {
 
-  darkMode = false;
+  modeGelap = false;
+  modeTerang = true;
 
   constructor() { }
 
-  ngOnInit() {
-    const prefersDark = localStorage.getItem('darkMode');
-    if (prefersDark !== null) {
-      this.darkMode = prefersDark === 'true';
+  ngOnInit() { }
+
+  // Toggle untuk mengaktifkan dark mode dan menonaktifkan mode terang
+  toggleGelap() {
+    this.modeGelap = !this.modeGelap;
+    if (this.modeGelap) {
+      this.modeTerang = false;
+      document.body.classList.add('dark');
     } else {
-      this.darkMode = false;
+      document.body.classList.remove('dark');
     }
-    this.applyDarkMode();
   }
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    localStorage.setItem('darkMode', String(this.darkMode));
-    this.applyDarkMode();
-  }
-  applyDarkMode() {
-    document.body.classList.toggle('dark', this.darkMode);
-    document.documentElement.classList.toggle('ion-palette-dark', this.darkMode);
+  // Toggle untuk mengaktifkan mode terang dan menonaktifkan mode gelap
+  toggleTerang() {
+    this.modeTerang = !this.modeTerang;
+    if (this.modeTerang) {
+      this.modeGelap = false;
+      document.body.classList.remove('dark');
+    } else {
+      document.body.classList.add('dark');
+    }
   }
 }
