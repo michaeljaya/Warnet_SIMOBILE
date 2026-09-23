@@ -1,13 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>riwayattransaksi</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/transaksi"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Riwayat Transaksi</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">riwayattransaksi</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div *ngIf="transactions.length === 0" style="text-align:center; margin-top:50px;">
+    <ion-icon name="document-text-outline" style="font-size:64px; color:#ccc;"></ion-icon>
+    <p>Belum ada riwayat transaksi</p>
+  </div>
+
+  <ion-list>
+    <div *ngFor="let tx of transactions" class="fade-in">
+      <ion-item button (click)="showDetail(tx)">
+        <ion-icon name="receipt" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Transaksi #{{ tx.id }}</h2>
+          <p>{{ tx.date | date:'dd/MM/yyyy HH:mm' }}</p>
+        </ion-label>
+        <ion-note slot="end"><b>Rp {{ tx.total }}</b></ion-note>
+      </ion-item>
+
+      <ion-card *ngIf="selectedTx?.id === tx.id" class="slide-up">
+        <ion-card-header>
+          <ion-card-subtitle>Detail Transaksi #{{ tx.id }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item *ngFor="let item of tx.items">
+              <ion-label>{{ item.product.name }}</ion-label>
+              <ion-note slot="end">{{ item.quantity }} x Rp {{ item.product.sellPrice }}</ion-note>
+            </ion-item>
+
+            <ion-item>
+              <ion-label color="primary"><b>TOTAL PEMBAYARAN</b></ion-label>
+              <ion-note slot="end" color="primary"><b>Rp {{ tx.total }}</b></ion-note>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </ion-list>
 </ion-content>

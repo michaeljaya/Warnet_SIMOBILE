@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { CartService } from '../services/cart';
-import { Transaction } from '../services/transaction'; 
+import { TransactionService } from '../services/transaction';
 
 @Component({
   selector: 'app-transaksi',
@@ -12,23 +13,42 @@ import { Transaction } from '../services/transaction';
 export class TransaksiPage implements OnInit {
 
   constructor(
-    public cartService: CartService, 
-    public transactionService: Transaction,
+    public cartService: CartService,
+    public transactionService: TransactionService,
     private alertController: AlertController,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
   }
+
+
+  checkoutButtons = [
+    { text: 'Batal', role: 'cancel' },
+    {
+      text: 'Konfirmasi',
+      handler: () => {
+        //Simpan data transaksi
+        this.transactionService.addTransaction(this.cartService.cart, this.cartService.getTotal());
+        //Kosongkan keranjang
+        this.cartService.clearCart();
+        //Pindah ke halaman riwayat transaksi
+        setTimeout(() => {
+          this.router.navigate(['/riwayattransaksi']);
+        }, 10);
+      }
+    }
+  ];
 
   hapusItem(productId: number) {
     this.cartService.removeFromCart(productId);
   }
-  
+
   tambahQty(product: any) {
     if (product.stock > 0) {
       this.cartService.tambahKeranjang(product);
@@ -40,7 +60,7 @@ export class TransaksiPage implements OnInit {
     if (item) {
       if (item.quantity > 1) {
         item.quantity -= 1;
-        product.stock += 1; 
+        product.stock += 1;
       } else {
         this.cartService.removeFromCart(product.id);
       }
@@ -48,6 +68,6 @@ export class TransaksiPage implements OnInit {
   }
 
   async checkout() {
-  
+
   }
 }

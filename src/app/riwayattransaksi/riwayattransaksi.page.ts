@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TransactionService, Transaction } from '../services/transaction';
 
 @Component({
   selector: 'app-riwayattransaksi',
@@ -7,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class RiwayattransaksiPage implements OnInit {
+  transactions: Transaction[] = [];
+  
+  selectedTx: Transaction | null = null;
 
-  constructor() { }
+  constructor(
+    private txService: TransactionService,
+    private cdr: ChangeDetectorRef 
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.transactions = this.txService.getTransactions();
+    this.cdr.detectChanges(); 
   }
 
+  showDetail(tx: Transaction) {
+    this.selectedTx = this.selectedTx?.id === tx.id ? null : tx;
+  }
 }
