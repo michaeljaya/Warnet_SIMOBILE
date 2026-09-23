@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../services/product';
 import { CartService } from '../services/cart';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-produk',
@@ -15,7 +16,7 @@ export class ProdukPage implements OnInit {
   kategoriDipilih: string = 'Semua'
   semuaProduk: Product[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(private productService: ProductService, private cartService: CartService,  private toastController: ToastController ) { }
 
   ngOnInit() {
     this.semuaProduk = this.productService.ambilProduk();
@@ -59,11 +60,23 @@ export class ProdukPage implements OnInit {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
-  tambahKeKeranjang(product: Product) {
+  async tambahKeKeranjang(product: Product) {
     if (product.stock > 0) {
       this.cartService.tambahKeranjang(product);
     }
-  }
+
+    // --- KODE ANIMASI TOAST TAMBAHAN ANDA ---
+      const toast = await this.toastController.create({
+        message: product.name + ' berhasil ditambahkan!',
+        duration: 1500, // muncul selama 1.5 detik
+        position: 'top', // muncul meluncur dari atas
+        color: 'success',
+        animated: true // Memastikan efek animasinya aktif (Syarat UTS)
+      });
+      await toast.present();
+      // ----------------------------------------
+    }
+  
 
   //Mengambil jumlah produk ini di dalam keranjang
   dapatkanQtyKeranjang(product: Product): number {

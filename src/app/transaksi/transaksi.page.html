@@ -3,14 +3,65 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Transaksi</ion-title>
+    <ion-title>Keranjang Belanja</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">transaksi</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div *ngIf="cartService.cart.length === 0" class="ion-text-center" style="margin-top: 50px;">
+    <p>Keranjang masih kosong.</p>
+  </div>
+
+  <ion-list *ngIf="cartService.cart.length > 0">
+    <ion-item-sliding *ngFor="let item of cartService.cart">
+      <ion-item>
+        
+        <!-- Gambar produk di sebelah kiri -->
+        <ion-thumbnail slot="start">
+          <img [src]="item.product.image ? item.product.image : 'assets/shapes.svg'" alt="gambar produk" />
+        </ion-thumbnail>
+
+        <ion-label>
+          <h2 style="font-weight: bold;">{{ item.product.name }}</h2>
+          <p>Rp {{ item.product.sellPrice }}</p>
+          
+          <!-- Tombol Plus dan Minus (Desain Simple Tanpa Warna) -->
+          <div style="display: flex; align-items: center; margin-top: 8px;">
+            <ion-button size="small" fill="clear" color="dark" (click)="kurangiQty(item.product)" style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
+              <ion-icon name="remove"></ion-icon>
+            </ion-button>
+            
+            <span style="margin: 0 12px; font-size: 16px; font-weight: bold;">{{ item.quantity }}</span>
+            
+            <ion-button size="small" fill="clear" color="dark" (click)="tambahQty(item.product)" [disabled]="item.product.stock === 0" style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-label>
+        
+        <!-- Subtotal Harga (Harga Satuan * Jumlah Beli) -->
+        <ion-note slot="end" color="primary" style="font-weight: bold;">
+          Rp {{ item.product.sellPrice * item.quantity }}
+        </ion-note>
+
+      </ion-item>
+      
+      <!-- Tombol Hapus (Syarat UTS: Digeser / Swipe ke kiri) -->
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="hapusItem(item.product.id)">
+          Hapus
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
+
+<ion-footer *ngIf="cartService.cart.length > 0">
+  <ion-toolbar>
+    <ion-title size="small">Total: Rp {{ cartService.getTotal() }}</ion-title>
+    <ion-button slot="end" color="success" (click)="checkout()" style="margin-right: 10px;">
+      Konfirmasi
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
