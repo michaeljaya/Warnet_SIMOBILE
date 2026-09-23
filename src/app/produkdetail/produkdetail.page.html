@@ -1,13 +1,75 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>produkdetail</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/produk"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Produk</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">produkdetail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div *ngIf="product" class="slide-up">
+    <!-- ion-card -->
+    <ion-card>
+      <img [src]="product.image ? product.image : 'assets/placeholder.png'"
+        style="width:100%; max-height:200px; object-fit:contain;">
+      <ion-card-header>
+        <ion-card-title>{{ product.name }}</ion-card-title>
+        <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <p style="color: var(--ion-color-medium); font-size: 14px; margin-top: 0;">
+              {{ product.description }}
+            </p>
+          </ion-item>
+          <ion-item>
+            <ion-label>Harga Beli</ion-label>
+            <ion-note slot="end">Rp {{ product.buyPrice }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Harga Jual</ion-label>
+            <ion-note slot="end">Rp {{ product.sellPrice }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Keuntungan</ion-label>
+            <ion-note slot="end" color="success">Rp {{ product.sellPrice - product.buyPrice }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Sisa Stok</ion-label>
+            <ion-badge [color]="product.stock > 0 ? 'success' : 'danger'">{{ product.stock }}</ion-badge>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+      <div style="padding: 0 15px 15px 15px;">
+        <ion-button *ngIf="dapatkanQtyKeranjang() === 0" expand="block" color="success" (click)="tambahKeKeranjang()"
+          [disabled]="product.stock === 0">
+          {{ product.stock === 0 ? 'Stok Habis' : '+ Keranjang' }}
+        </ion-button>
+
+        <div *ngIf="dapatkanQtyKeranjang() > 0"
+          style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ion-color-success); border-radius: 4px; height: 45px;">
+          <ion-button fill="clear" color="success" size="large" (click)="kurangiQtyKeranjang()"
+            style="margin:0; width: 60px; --padding-start:0; --padding-end:0;">
+            <ion-icon name="remove"></ion-icon>
+          </ion-button>
+
+          <span style="font-weight: bold; font-size: 18px; color: var(--ion-text-color);">{{ dapatkanQtyKeranjang()
+            }}</span>
+
+          <ion-button fill="clear" color="success" size="large" (click)="tambahKeKeranjang()"
+            [disabled]="product.stock === 0" style="margin:0; width: 60px; --padding-start:0; --padding-end:0;">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+
+    <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/produkform', product.id]"
+      class="ion-margin-top">
+      Edit Produk
+    </ion-button>
+  </div>
 </ion-content>

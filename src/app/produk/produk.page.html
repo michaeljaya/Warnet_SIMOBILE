@@ -1,16 +1,81 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Produk</ion-title>
+    <ion-title>Daftar Produk</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <!-- Two-way binding pencarian real-time -->
+    <ion-searchbar [(ngModel)]="cariProduk" placeholder="Cari barang..."></ion-searchbar>
+  </ion-toolbar>
+
+  <!-- Filter Kategori menggunakan ion-segment -->
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="kategoriDipilih" scrollable="true">
+      <ion-segment-button value="Semua">
+        <ion-label>Semua</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Sembako">
+        <ion-label>Sembako</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Minuman">
+        <ion-label>Minuman</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Kebutuhan Mandi">
+        <ion-label>Mandi</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Pembersih">
+        <ion-label>Pembersih</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">produk</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row *ngFor="let row of chunkArray(filterProduk, 2); let i = index">
+      <ion-col size="6" *ngFor="let p of row; let i2 = index">
+        <!-- ion-card -->
+        <ion-card>
+          <img alt="{{ p.name }}" src="{{ p.image ? p.image : 'assets/placeholder.svg' }}"
+            style="width:100%; height:120px; object-fit:contain;" />
+          <ion-card-header>
+            <ion-card-title style="font-size:14px;">{{ p.name }}</ion-card-title>
+            <ion-card-subtitle>Rp {{ p.sellPrice | number }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- ion-chip -->
+            <ion-chip [color]="p.stock > 0 ? 'success' : 'danger'" style="margin:0;">
+              <ion-label>{{ p.stock > 0 ? 'Stok: ' + p.stock : 'Habis' }}</ion-label>
+            </ion-chip>
+          </ion-card-content>
+
+          <!-- Tampilan untuk Tambah Ke Keranjang -->
+          <div style="padding: 0 5px 8px 5px;">
+            <ion-button expand="block" size="small" color="primary" routerLink="/produkdetail/{{ p.id }}" style="margin: 0 0 5px 0;">
+              Detail
+            </ion-button>
+            
+            <!-- Jika qty = 0 (Belum dibeli) -->
+            <ion-button *ngIf="dapatkanQtyKeranjang(p) === 0" expand="block" size="small" color="success" (click)="tambahKeKeranjang(p)" [disabled]="p.stock === 0" style="margin:0;">
+              + Keranjang
+            </ion-button>
+            <!-- Jika qty > 0 (Sudah dibeli) -->
+            <div *ngIf="dapatkanQtyKeranjang(p) > 0" style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ion-color-success); border-radius: 4px; height: 32px;">
+              <ion-button fill="clear" color="success" size="small" (click)="kurangiQtyKeranjang(p)" style="margin:0; width: 45px; --padding-start:0; --padding-end:0;">
+                <ion-icon name="remove"></ion-icon>
+              </ion-button>
+              
+              <span style="font-weight: bold; font-size: 16px; color: var(--ion-text-color);">{{ dapatkanQtyKeranjang(p) }}</span>
+              
+              <ion-button fill="clear" color="success" size="small" (click)="tambahKeKeranjang(p)" [disabled]="p.stock === 0" style="margin:0; width: 45px; --padding-start:0; --padding-end:0;">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
