@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProductService, Product } from '../services/product';
 import { CartService } from '../services/cart';
 import { ToastController } from '@ionic/angular';
@@ -16,15 +16,21 @@ export class ProdukPage implements OnInit {
   kategoriDipilih: string = 'Semua'
   semuaProduk: Product[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService,  private toastController: ToastController ) { }
+  constructor(
+    private productService: ProductService, 
+    private cartService: CartService,  
+    private toastController: ToastController,
+    private cdr: ChangeDetectorRef 
+  ) { }
 
   ngOnInit() {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
   //Refresh data setiap kali halaman ditampilkan
-  refreshData() {
+  ionViewWillEnter() {
     this.semuaProduk = this.productService.ambilProduk();
+    this.cdr.detectChanges(); // Memaksa Halaman Produk menggambar ulang datanya
   }
 
   //Setiap kali user mengetik, daftar langsung berubah
@@ -65,16 +71,15 @@ export class ProdukPage implements OnInit {
       this.cartService.tambahKeranjang(product);
     }
 
-    // --- KODE ANIMASI TOAST TAMBAHAN ANDA ---
       const toast = await this.toastController.create({
         message: product.name + ' berhasil ditambahkan!',
         duration: 1500, // muncul selama 1.5 detik
-        position: 'top', // muncul meluncur dari atas
+        position: 'top', // muncul di atas
         color: 'success',
-        animated: true // Memastikan efek animasinya aktif (Syarat UTS)
+        animated: true // efek animasinya aktif 
       });
       await toast.present();
-      // ----------------------------------------
+      
     }
   
 

@@ -16,8 +16,6 @@
   <ion-list *ngIf="cartService.cart.length > 0">
     <ion-item-sliding *ngFor="let item of cartService.cart">
       <ion-item>
-        
-        <!-- Gambar produk di sebelah kiri -->
         <ion-thumbnail slot="start">
           <img [src]="item.product.image ? item.product.image : 'assets/shapes.svg'" alt="gambar produk" />
         </ion-thumbnail>
@@ -25,8 +23,6 @@
         <ion-label>
           <h2 style="font-weight: bold;">{{ item.product.name }}</h2>
           <p>Rp {{ item.product.sellPrice }}</p>
-          
-          <!-- Tombol Plus dan Minus (Desain Simple Tanpa Warna) -->
           <div style="display: flex; align-items: center; margin-top: 8px;">
             <ion-button size="small" fill="clear" color="dark" (click)="kurangiQty(item.product)" style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
               <ion-icon name="remove"></ion-icon>
@@ -39,15 +35,11 @@
             </ion-button>
           </div>
         </ion-label>
-        
-        <!-- Subtotal Harga (Harga Satuan * Jumlah Beli) -->
         <ion-note slot="end" color="primary" style="font-weight: bold;">
           Rp {{ item.product.sellPrice * item.quantity }}
         </ion-note>
 
       </ion-item>
-      
-      <!-- Tombol Hapus (Syarat UTS: Digeser / Swipe ke kiri) -->
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="hapusItem(item.product.id)">
           Hapus
