@@ -15,4 +15,11 @@
     <h2>Bu Marni</h2>
     <p>Toko Makmur Jaya</p>
   </div>
+  <ion-item button id="btnLogout">
+    <ion-icon name="log-out" slot="start" color="danger"></ion-icon>
+    <ion-label color="danger">Logout</ion-label>
+  </ion-item>
+
+  <ion-alert trigger="btnLogout" header="Logout" message="Apakah Anda yakin ingin keluar?" [buttons]="logoutButtons">
+  </ion-alert>
 </ion-content>

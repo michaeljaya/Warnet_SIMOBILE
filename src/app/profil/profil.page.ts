@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -8,7 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilPage implements OnInit {
 
-  constructor() { }
+  public logoutButtons = [
+    {
+      text: 'Batal',
+      role: 'cancel',
+    },
+    {
+      text: 'Ya, Keluar',
+      role: 'confirm',
+      handler: () => {
+        this.router.navigate(['/dashboard']);
+      },
+    },
+  ];
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

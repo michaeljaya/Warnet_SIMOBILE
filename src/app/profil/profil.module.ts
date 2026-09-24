@@ -17,4 +17,5 @@ import { ProfilPage } from './profil.page';
   ],
   declarations: [ProfilPage]
 })
-export class ProfilPageModule {}
+export class ProfilPageModule {
+}
