@@ -115,7 +115,47 @@ export class ProductService {
             stock: 20,
             description: 'Deterjen bubuk tangguh hilangkan noda dalam 1 kali kucek.',
             image: 'https://www.rinso.com/images/h0nadbhvm6m4/1IAugVyaV0p8VlPUEUYo2X/af30ad92f6496ec5579cff55a375977b/UG93ZGVyX2NsYXNzaWNfZnJlc2gucG5n/1080w-1080h/rinso-anti-noda-deterjen-bubuk-classic-fresh-packshot.avif'
-        }
+        },
+        {
+            id: 11,
+            name: 'Chitato Sapi Panggang 68g',
+            category: 'Makanan',
+            buyPrice: 10500,
+            sellPrice: 12500,
+            stock: 60,
+            description: 'Keripik kentang bergelombang dengan bumbu sapi panggang yang khas.',
+            image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-10880788/chitato_chitato_sapi_panggang_65_gr_full01_ybjthf.webp'
+        },
+        {
+            id: 12,
+            name: 'Aqua Air Mineral Botol 600ml',
+            category: 'Minuman',
+            buyPrice: 3000,
+            sellPrice: 4000,
+            stock: 100,
+            description: 'Air mineral pegunungan berkualitas tinggi yang menyegarkan.',
+            image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/MTA-10881878/aqua_aqua_air_mineral_botol_600_ml_full01_xun5ci.webp'
+        },
+        {
+            id: 13,
+            name: 'Sunlight Jeruk Nipis 755ml',
+            category: 'Pembersih',
+            buyPrice: 16500,
+            sellPrice: 19000,
+            stock: 35,
+            description: 'Sabun cuci piring cair dengan ekstrak jeruk nipis asli, ampuh angkat lemak.',
+            image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//101/MTA-55440990/no_brand_sunlight_755_ml_full01_9db4c931.jpg'
+        },
+        {
+            id: 14,
+            name: 'Mie Sedaap Tasty Sambal Matah',
+            category: 'Makanan',
+            buyPrice: 6000,
+            sellPrice: 7500,
+            stock: 90,
+            description: 'Varian unik mie instan dengan cita rasa sambal matah Bali yang pedas dan segar.',
+            image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/116/MTA-184878638/mie_sedaap_full01_da74c7ef.webp'
+        },
     ];
 
     //Method untuk mengambil produk
