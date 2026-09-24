@@ -27,6 +27,10 @@ export class TransaksiPage implements OnInit {
     this.cdr.detectChanges();
   }
 
+    ionViewDidEnter() {
+    this.cdr.detectChanges();
+  }
+
 
   checkoutButtons = [
     { text: 'Batal', role: 'cancel' },

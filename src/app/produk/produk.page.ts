@@ -30,7 +30,7 @@ export class ProdukPage implements OnInit {
   //Refresh data setiap kali halaman ditampilkan
   ionViewWillEnter() {
     this.semuaProduk = this.productService.ambilProduk();
-    this.cdr.detectChanges(); // Memaksa Halaman Produk menggambar ulang datanya
+    this.cdr.detectChanges(); 
   }
 
   //Setiap kali user mengetik, daftar langsung berubah
