@@ -32,9 +32,8 @@
 
 <ion-content class="ion-padding">
   <ion-grid>
-    <ion-row *ngFor="let row of chunkArray(filterProduk, 2); let i = index">
-      <ion-col size="6" *ngFor="let p of row; let i2 = index">
-      
+    <ion-row>
+      <ion-col size="6" *ngFor="let p of filterProduk">
         
         <ion-card>
           <img alt="{{ p.name }}" src="{{ p.image ? p.image : 'assets/placeholder.svg' }}"
