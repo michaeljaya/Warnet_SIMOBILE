@@ -1,6 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -8,13 +7,18 @@
     <ion-title>Keranjang Belanja</ion-title>
 
     <ion-buttons slot="end">
+
+      <ion-button (click)="refreshData()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      
       <ion-button routerLink="/riwayattransaksi">
         <ion-icon name="receipt-outline" slot="start"></ion-icon>
         Riwayat Transaksi
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> 
 
 <ion-content [fullscreen]="true" class="ion-padding">
   
@@ -49,6 +53,7 @@
         </ion-note>
 
       </ion-item>
+      
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="hapusItem(item.product.id)">
           Hapus

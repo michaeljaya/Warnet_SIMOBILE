@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../services/product';
 import { CartService } from '../services/cart';
 import { ToastController } from '@ionic/angular';
@@ -19,18 +19,16 @@ export class ProdukPage implements OnInit {
   constructor(
     private productService: ProductService, 
     private cartService: CartService,  
-    private toastController: ToastController,
-    private cdr: ChangeDetectorRef 
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
-  //Refresh data setiap kali halaman ditampilkan
-  ionViewWillEnter() {
+  // Tombol Refresh Manual (Menggantikan fungsi otomatis)
+  refreshLayar() {
     this.semuaProduk = this.productService.ambilProduk();
-    this.cdr.detectChanges(); 
   }
 
   //Setiap kali user mengetik, daftar langsung berubah
@@ -71,23 +69,23 @@ export class ProdukPage implements OnInit {
       this.cartService.tambahKeranjang(product);
     }
 
-      const toast = await this.toastController.create({
-        message: product.name + ' berhasil ditambahkan!',
-        duration: 1500, // muncul selama 1.5 detik
-        position: 'top', // muncul di atas
-        color: 'success',
-        animated: true // efek animasinya aktif 
-      });
-      await toast.present();
-      
-    }
+    // Efek notifikasi keren
+    const toast = await this.toastController.create({
+      message: product.name + ' berhasil ditambahkan!',
+      duration: 1500, // muncul selama 1.5 detik
+      position: 'top', // muncul di atas
+      color: 'success',
+      animated: true // efek animasinya aktif 
+    });
+    await toast.present();
+  }
   
-
   //Mengambil jumlah produk ini di dalam keranjang
   dapatkanQtyKeranjang(product: Product): number {
     const item = this.cartService.getCart().find(c => c.product.id === product.id);
     return item ? item.quantity : 0;
   }
+
   //Mengurangi jumlah di keranjang
   kurangiQtyKeranjang(product: Product) {
     const item = this.cartService.getCart().find(c => c.product.id === product.id);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { CartService } from '../services/cart';
@@ -16,32 +16,24 @@ export class TransaksiPage implements OnInit {
     public cartService: CartService,
     public transactionService: TransactionService,
     private alertController: AlertController,
-    private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
-    this.cdr.detectChanges();
+  // Tombol Refresh murni Angular standar
+  refreshData() {
+    // Saat tombol diklik, Angular otomatis me-refresh tampilan keranjang
   }
-
-    ionViewDidEnter() {
-    this.cdr.detectChanges();
-  }
-
 
   checkoutButtons = [
     { text: 'Batal', role: 'cancel' },
     {
       text: 'Konfirmasi',
       handler: () => {
-        //Simpan data transaksi
         this.transactionService.addTransaction(this.cartService.cart, this.cartService.getTotal());
-        //Kosongkan keranjang
         this.cartService.clearCart();
-        //Pindah ke halaman riwayat transaksi
         setTimeout(() => {
           this.router.navigate(['/riwayattransaksi']);
         }, 10);
@@ -72,6 +64,5 @@ export class TransaksiPage implements OnInit {
   }
 
   async checkout() {
-
   }
 }

@@ -1,34 +1,32 @@
 <ion-header>
+ 
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    
     <ion-title>Daftar Produk</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="primary">
 
+    <ion-buttons slot="end">
+   
+      <ion-button (click)="refreshLayar()">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
     <ion-searchbar [(ngModel)]="cariProduk" placeholder="Cari barang..."></ion-searchbar>
   </ion-toolbar>
+
   <ion-toolbar color="primary">
     <ion-segment [(ngModel)]="kategoriDipilih" scrollable="true">
-      <ion-segment-button value="Semua">
-        <ion-label>Semua</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Sembako">
-        <ion-label>Sembako</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Makanan">
-        <ion-label>Makanan</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Minuman">
-        <ion-label>Minuman</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Kebutuhan Mandi">
-        <ion-label>Mandi</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="Pembersih">
-        <ion-label>Pembersih</ion-label>
-      </ion-segment-button>
+      <ion-segment-button value="Semua"><ion-label>Semua</ion-label></ion-segment-button>
+      <ion-segment-button value="Sembako"><ion-label>Sembako</ion-label></ion-segment-button>
+      <ion-segment-button value="Makanan"><ion-label>Makanan</ion-label></ion-segment-button>
+      <ion-segment-button value="Minuman"><ion-label>Minuman</ion-label></ion-segment-button>
+      <ion-segment-button value="Kebutuhan Mandi"><ion-label>Mandi</ion-label></ion-segment-button>
+      <ion-segment-button value="Pembersih"><ion-label>Pembersih</ion-label></ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -46,7 +44,6 @@
             <ion-card-subtitle>Rp {{ p.sellPrice | number }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-
             <ion-chip [color]="p.stock > 0 ? 'success' : 'danger'" style="margin:0;">
               <ion-label>{{ p.stock > 0 ? 'Stok: ' + p.stock : 'Habis' }}</ion-label>
             </ion-chip>
@@ -58,7 +55,6 @@
               Detail
             </ion-button>
 
-
             <ion-button *ngIf="dapatkanQtyKeranjang(p) === 0" expand="block" size="small" color="success"
               (click)="tambahKeKeranjang(p)" [disabled]="p.stock === 0" style="margin:0;">
               + Keranjang
@@ -66,18 +62,22 @@
 
             <div *ngIf="dapatkanQtyKeranjang(p) > 0"
               style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ion-color-success); border-radius: 4px; height: 32px;">
+              
               <ion-button fill="clear" color="success" size="small" (click)="kurangiQtyKeranjang(p)"
                 style="margin:0; width: 45px; --padding-start:0; --padding-end:0;">
                 <ion-icon name="remove"></ion-icon>
               </ion-button>
-              <span style="font-weight: bold; font-size: 16px; color: var(--ion-text-color);">{{ dapatkanQtyKeranjang(p)
-                }}</span>
+              
+              <span style="font-weight: bold; font-size: 16px; color: var(--ion-text-color);">
+                {{ dapatkanQtyKeranjang(p) }}
+              </span>
 
               <ion-button fill="clear" color="success" size="small" (click)="tambahKeKeranjang(p)"
                 [disabled]="p.stock === 0" style="margin:0; width: 45px; --padding-start:0; --padding-end:0;">
                 <ion-icon name="add"></ion-icon>
               </ion-button>
             </div>
+            
           </div>
         </ion-card>
       </ion-col>

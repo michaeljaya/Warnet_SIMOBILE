@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TransactionService, Transaction } from '../services/transaction';
 
 @Component({
@@ -9,19 +9,19 @@ import { TransactionService, Transaction } from '../services/transaction';
 })
 export class RiwayattransaksiPage implements OnInit {
   transactions: Transaction[] = [];
-  
   selectedTx: Transaction | null = null;
 
   constructor(
-    private txService: TransactionService,
-    private cdr: ChangeDetectorRef 
+    private txService: TransactionService
   ) { }
 
-  ngOnInit() { }
-
-  ionViewWillEnter() {
+  ngOnInit() { 
     this.transactions = this.txService.getTransactions();
-    this.cdr.detectChanges(); 
+  }
+
+  // Tombol Refresh murni menarik data ulang
+  refreshData() {
+    this.transactions = this.txService.getTransactions();
   }
 
   showDetail(tx: Transaction) {
