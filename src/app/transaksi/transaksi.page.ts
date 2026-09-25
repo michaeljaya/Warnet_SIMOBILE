@@ -22,9 +22,15 @@ export class TransaksiPage implements OnInit {
   ngOnInit() {
   }
 
-  // Tombol Refresh murni Angular standar
+  isRefreshing = false;
+
   refreshData() {
-    // Saat tombol diklik, Angular otomatis me-refresh tampilan keranjang
+    this.isRefreshing = true;
+    
+    // Simulasi proses memuat data dengan durasi 800ms
+    setTimeout(() => {
+      this.isRefreshing = false;
+    }, 800);
   }
 
   checkoutButtons = [
@@ -61,8 +67,5 @@ export class TransaksiPage implements OnInit {
         this.cartService.removeFromCart(product.id);
       }
     }
-  }
-
-  async checkout() {
   }
 }

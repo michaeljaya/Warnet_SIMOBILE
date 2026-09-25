@@ -18,7 +18,7 @@ export class PengaturanPage implements OnInit {
   // Toggle untuk mengaktifkan dark mode dan menonaktifkan mode terang
   toggleGelap() {
     this.modeGelap = !this.modeGelap;
-    this.modeTerang = !this.modeGelap; // Selalu kebalikan dari modeGelap
+    this.modeTerang = !this.modeGelap; 
     if (this.modeGelap) {
       document.body.classList.add('dark');
     } else {
@@ -29,7 +29,7 @@ export class PengaturanPage implements OnInit {
   // Toggle untuk mengaktifkan mode terang dan menonaktifkan mode gelap
   toggleTerang() {
     this.modeTerang = !this.modeTerang;
-    this.modeGelap = !this.modeTerang; // Selalu kebalikan dari modeTerang
+    this.modeGelap = !this.modeTerang; 
     if (this.modeTerang) {
       document.body.classList.remove('dark');
     } else {

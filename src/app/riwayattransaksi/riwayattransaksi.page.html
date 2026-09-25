@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div *ngIf="transactions.length === 0" style="text-align:center; margin-top:50px;">
+  <div *ngIf="transactions.length === 0" style="text-align:center; margin-top:50px;" class="fade-in">
     <ion-icon name="document-text-outline" style="font-size:64px; color:#ccc;"></ion-icon>
     <p>Belum ada riwayat transaksi</p>
   </div>
@@ -42,7 +42,6 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
-
     </div>
   </ion-list>
 </ion-content>

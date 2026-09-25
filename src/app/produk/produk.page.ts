@@ -26,7 +26,7 @@ export class ProdukPage implements OnInit {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
-  // Tombol Refresh Manual (Menggantikan fungsi otomatis)
+  // Tombol Refresh Manual
   refreshLayar() {
     this.semuaProduk = this.productService.ambilProduk();
   }
@@ -69,7 +69,7 @@ export class ProdukPage implements OnInit {
       this.cartService.tambahKeranjang(product);
     }
 
-    // Efek notifikasi keren
+    // Efek notifikasi
     const toast = await this.toastController.create({
       message: product.name + ' berhasil ditambahkan!',
       duration: 1500, // muncul selama 1.5 detik
