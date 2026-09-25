@@ -156,6 +156,16 @@ export class ProductService {
             description: 'Varian unik mie instan dengan cita rasa sambal matah Bali yang pedas dan segar.',
             image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/116/MTA-184878638/mie_sedaap_full01_da74c7ef.webp'
         },
+        {
+            id: 15,
+            name: 'Teh Sosro Botol 450ml',
+            category: 'Minuman',
+            buyPrice: 4000,
+            sellPrice: 5000,
+            stock: 100,
+            description: 'Teh botol siap minum dengan rasa teh melati yang segar.',
+            image: ''
+        },
     ];
 
     //Method untuk mengambil produk

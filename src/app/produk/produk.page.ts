@@ -13,12 +13,12 @@ export class ProdukPage implements OnInit {
 
   //two way binding
   cariProduk: string = '';
-  kategoriDipilih: string = 'Semua'
+  kategoriDipilih: string = 'Semua';
   semuaProduk: Product[] = [];
 
   constructor(
-    private productService: ProductService, 
-    private cartService: CartService,  
+    private productService: ProductService,
+    private cartService: CartService,
     private toastController: ToastController
   ) { }
 
@@ -27,8 +27,18 @@ export class ProdukPage implements OnInit {
   }
 
   // Tombol Refresh Manual
-  refreshLayar() {
+  async refreshLayar() {
     this.semuaProduk = this.productService.ambilProduk();
+
+    // Efek notifikasi
+    const toast = await this.toastController.create({
+      message: 'Daftar produk berhasil dimuat ulang!',
+      duration: 1500, // muncul selama 1.5 detik
+      position: 'top', // muncul di atas
+      color: 'success',
+      animated: true // efek animasinya aktif 
+    });
+    await toast.present();
   }
 
   //Setiap kali user mengetik, daftar langsung berubah
@@ -79,7 +89,7 @@ export class ProdukPage implements OnInit {
     });
     await toast.present();
   }
-  
+
   //Mengambil jumlah produk ini di dalam keranjang
   dapatkanQtyKeranjang(product: Product): number {
     const item = this.cartService.getCart().find(c => c.product.id === product.id);

@@ -1,15 +1,6 @@
-// import { Service } from '@angular/core';
-
-// @Service()
-// export class Cart {
-// }
-
-//sementara
 import { Service } from '@angular/core';
-import { Product } from './product';  // Import interface Product
+import { Product } from './product';
 
-
-// Interface untuk item di keranjang (produk + jumlah beli)
 export interface CartItem {
   product: Product;
   quantity: number;
@@ -27,13 +18,12 @@ export class CartService {
   }
 
   // Tambah produk ke keranjang
-  // Jika produk sudah ada, tambah jumlahnya saja
   tambahKeranjang(product: Product) {
     const item = this.cart.find(c => c.product.id === product.id);
     if (item) {
-      item.quantity += 1;  // Sudah ada, tambah quantity
+      item.quantity += 1;
     } else {
-      this.cart.push({ product, quantity: 1 });  // Belum ada, buat baru
+      this.cart.push({ product, quantity: 1 });  
     }
     product.stock--;  // Kurangi stok produk
   }
