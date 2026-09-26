@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./produkform/produkform.module').then(m => m.ProdukformPageModule)
   },
   {
+    path: 'produkform/:id',
+    loadChildren: () => import('./produkform/produkform.module').then(m => m.ProdukformPageModule)
+  },
+  {
     path: 'transaksi',
     loadChildren: () => import('./transaksi/transaksi.module').then(m => m.TransaksiPageModule)
   },

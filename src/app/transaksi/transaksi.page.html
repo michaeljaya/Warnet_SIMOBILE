@@ -9,11 +9,13 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px;" class="fade-in">
-    <ion-button fill="solid" color="medium" (click)="refreshData()">
+    
+    <ion-button fill="outline" color="solid" shape="round" (click)="refreshData()">
+      <ion-icon name="refresh" slot="start"></ion-icon>
       Refresh
     </ion-button>
 
-    <ion-button routerLink="/riwayattransaksi" fill="solid" color="medium">
+    <ion-button routerLink="/riwayattransaksi" fill="outline" color="success" shape="round">
       <ion-icon name="receipt-outline" slot="start"></ion-icon>
       Riwayat Transaksi
     </ion-button>
