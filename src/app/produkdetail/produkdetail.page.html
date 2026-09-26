@@ -56,7 +56,8 @@
             <ion-icon name="remove"></ion-icon>
           </ion-button>
 
-          <span style="font-weight: bold; font-size: 18px; color: var(--ion-text-color);">{{ dapatkanQtyKeranjang()}}</span>
+          <span style="font-weight: bold; font-size: 18px; color: var(--ion-text-color);">{{
+            dapatkanQtyKeranjang()}}</span>
 
           <ion-button fill="clear" color="success" size="large" (click)="tambahKeKeranjang()"
             [disabled]="product.stock === 0" style="margin:0; width: 60px; --padding-start:0; --padding-end:0;">

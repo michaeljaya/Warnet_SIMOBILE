@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular/lazy';
 
@@ -12,9 +12,10 @@ import { ProdukformPage } from './produkform.page';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     ProdukformPageRoutingModule
   ],
   declarations: [ProdukformPage]
 })
-export class ProdukformPageModule {}
+export class ProdukformPageModule { }

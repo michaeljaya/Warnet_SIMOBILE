@@ -1,13 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>produkform</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/produk"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEdit ? 'Edit Produk' : 'Tambah Produk' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">produkform</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="productForm" (ngSubmit)="save()">
+
+    <ion-item>
+      <ion-label position="stacked">Nama Produk</ion-label>
+      <ion-input formControlName="name" type="text" placeholder="Masukkan nama produk"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+      Nama produk wajib diisi.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Kategori</ion-label>
+      <ion-input formControlName="category" type="text" placeholder="Contoh: Sembako, Minuman"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+      Kategori wajib diisi.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Harga Beli</ion-label>
+      <ion-input formControlName="buyPrice" type="number" placeholder="0"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('buyPrice')?.invalid && productForm.get('buyPrice')?.touched">
+      Harga beli harus angka lebih dari 0.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Harga Jual</ion-label>
+      <ion-input formControlName="sellPrice" type="number" placeholder="0"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('sellPrice')?.invalid && productForm.get('sellPrice')?.touched">
+      Harga jual harus angka lebih dari 0.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Stok</ion-label>
+      <ion-input formControlName="stock" type="number" placeholder="0"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
+      Stok tidak boleh kurang dari 0.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Deskripsi</ion-label>
+      <ion-textarea formControlName="description" placeholder="Masukkan deskripsi produk..."
+        [autoGrow]="true"></ion-textarea>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+      Deskripsi wajib diisi.
+    </ion-note>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top" [disabled]="productForm.invalid" color="primary"
+      id="btnSave">
+      {{ isEdit ? 'Update Produk' : 'Simpan Produk' }}
+    </ion-button>
+  </form>
+
+  <ion-alert trigger="btnSave" header="Berhasil"
+    [message]="isEdit ? 'Produk berhasil diupdate!' : 'Produk baru berhasil disimpan!'" [buttons]="alertButtons">
+  </ion-alert>
 </ion-content>
