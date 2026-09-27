@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px;" class="fade-in">
-    
+
     <ion-button fill="outline" color="solid" shape="round" (click)="refreshData()">
       <ion-icon name="refresh" slot="start"></ion-icon>
       Refresh
@@ -30,7 +30,7 @@
     <ion-item-sliding *ngFor="let item of cartService.cart" class="slide-up">
       <ion-item>
         <ion-thumbnail slot="start">
-          <img [src]="item.product.image ? item.product.image : 'assets/shapes.svg'" alt="gambar produk" />
+          <img [src]="item.product.image ? item.product.image : 'assets/placeholder.svg'" alt="gambar produk" />
         </ion-thumbnail>
 
         <ion-label>
