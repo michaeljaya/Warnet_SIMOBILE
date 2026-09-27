@@ -19,6 +19,14 @@
     </ion-note>
 
     <ion-item>
+      <ion-label position="stacked">Link Gambar</ion-label>
+      <ion-input formControlName="image" type="url" placeholder="Contoh: https://example.com/gambar.jpg"></ion-input>
+    </ion-item>
+    <ion-note color="danger" *ngIf="productForm.get('image')?.invalid && productForm.get('image')?.touched">
+      Link gambar wajib diisi.
+    </ion-note>
+
+    <ion-item>
       <ion-label position="stacked">Kategori</ion-label>
       <ion-input formControlName="category" type="text" placeholder="Contoh: Sembako, Minuman"></ion-input>
     </ion-item>

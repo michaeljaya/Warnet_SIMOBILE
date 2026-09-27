@@ -181,7 +181,7 @@ export class ProductService {
     }
 
     //Method untuk menambah produk baru
-    tambahProduk(name: string, category: string, buyPrice: number, sellPrice: number, stock: number, description: string, image: string = '') {
+    tambahProduk(name: string, image: string = '', category: string, buyPrice: number, sellPrice: number, stock: number, description: string) {
         this.products.push({
             id: this.products.length > 0 ? Math.max(...this.products.map(p => p.id)) + 1 : 1,
             name: name,
@@ -195,10 +195,11 @@ export class ProductService {
     }
 
     //Method untuk mengupdate produk yang sudah ada
-    updateProduk(id: number, name: string, category: string, buyPrice: number, sellPrice: number, stock: number, description: string, image: string = '') {
+    updateProduk(id: number, name: string, image: string = '', category: string, buyPrice: number, sellPrice: number, stock: number, description: string) {
         const idx = this.products.findIndex(p => p.id === id);
         if (idx !== -1) {
             this.products[idx].name = name;
+            this.products[idx].image = image;
             this.products[idx].category = category;
             this.products[idx].buyPrice = buyPrice;
             this.products[idx].sellPrice = sellPrice;

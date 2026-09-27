@@ -30,6 +30,7 @@ export class ProdukformPage implements OnInit {
   ) {
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
+      image: ['', Validators.required],
       category: ['', Validators.required],
       buyPrice: [0, [Validators.required, Validators.min(0)]],
       sellPrice: [0, [Validators.required, Validators.min(0)]],
@@ -49,6 +50,7 @@ export class ProdukformPage implements OnInit {
         if (product) {
           this.productForm.patchValue({
             name: product.name,
+            image: product.image,
             category: product.category,
             buyPrice: product.buyPrice,
             sellPrice: product.sellPrice,
@@ -66,10 +68,10 @@ export class ProdukformPage implements OnInit {
       // Hanya jalankan logika update produk
       if (this.isEdit) {
         //update produk 
-        this.productService.updateProduk(this.editId, v.name, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
+        this.productService.updateProduk(this.editId, v.name, v.image, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
       } else {
         //tambah produk
-        this.productService.tambahProduk(v.name, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
+        this.productService.tambahProduk(v.name, v.image, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
       }
     }
   }
