@@ -15,62 +15,43 @@
       <ion-item>
         <ion-input label="Nama Produk" labelPlacement="stacked" formControlName="name"
           placeholder="Masukkan nama produk"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('name')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input label="Link Gambar" labelPlacement="stacked" formControlName="image" type="url"
           placeholder="https://example.com/gambar.jpg"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('image')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input label="Kategori" labelPlacement="stacked" formControlName="category"
           placeholder="Contoh: Sembako, Minuman"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('category')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input label="Harga Beli" labelPlacement="stacked" formControlName="buyPrice" type="number"
           placeholder="0"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('buyPrice')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input label="Harga Jual" labelPlacement="stacked" formControlName="sellPrice" type="number"
           placeholder="0"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('sellPrice')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input label="Stok" labelPlacement="stacked" formControlName="stock" type="number"
           placeholder="0"></ion-input>
+        <ion-checkbox slot="end" [checked]="productForm.get('stock')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-textarea label="Deskripsi" labelPlacement="stacked" formControlName="description"
           placeholder="Masukkan deskripsi produk..." [autoGrow]="true"></ion-textarea>
-      </ion-item>
-
-      <!-- Pengecekan validasi (pola sama seperti setting.page.html kelas Week 2) -->
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('name')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Nama produk diisi (min. 3 karakter)</ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('category')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Kategori diisi</ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('buyPrice')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Harga beli valid</ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('sellPrice')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Harga jual valid</ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('stock')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Stok valid</ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox [checked]="productForm.get('description')?.valid" disabled="true" labelPlacement="end"
-          justify="start">Deskripsi diisi</ion-checkbox>
+        <ion-checkbox slot="end" [checked]="productForm.get('description')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <!-- Tombol + Alert (pola sama seperti newpasta Week 6) -->
