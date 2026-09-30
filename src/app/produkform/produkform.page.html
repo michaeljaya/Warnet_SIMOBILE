@@ -8,72 +8,81 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="productForm" (ngSubmit)="save()">
+  <form [formGroup]="productForm">
+    <ion-list>
 
-    <ion-item>
-      <ion-label position="stacked">Nama Produk</ion-label>
-      <ion-input formControlName="name" type="text" placeholder="Masukkan nama produk"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
-      Nama produk wajib diisi.
-    </ion-note>
+      <!-- Pola input: label + labelPlacement (sesuai newpasta & setting kelas Week 6) -->
+      <ion-item>
+        <ion-input label="Nama Produk" labelPlacement="stacked" formControlName="name"
+          placeholder="Masukkan nama produk"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Link Gambar</ion-label>
-      <ion-input formControlName="image" type="url" placeholder="Contoh: https://example.com/gambar.jpg"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('image')?.invalid && productForm.get('image')?.touched">
-      Link gambar wajib diisi.
-    </ion-note>
+      <ion-item>
+        <ion-input label="Link Gambar" labelPlacement="stacked" formControlName="image" type="url"
+          placeholder="https://example.com/gambar.jpg"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Kategori</ion-label>
-      <ion-input formControlName="category" type="text" placeholder="Contoh: Sembako, Minuman"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
-      Kategori wajib diisi.
-    </ion-note>
+      <ion-item>
+        <ion-input label="Kategori" labelPlacement="stacked" formControlName="category"
+          placeholder="Contoh: Sembako, Minuman"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Harga Beli</ion-label>
-      <ion-input formControlName="buyPrice" type="number" placeholder="0"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('buyPrice')?.invalid && productForm.get('buyPrice')?.touched">
-      Harga beli harus angka lebih dari 0.
-    </ion-note>
+      <ion-item>
+        <ion-input label="Harga Beli" labelPlacement="stacked" formControlName="buyPrice" type="number"
+          placeholder="0"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Harga Jual</ion-label>
-      <ion-input formControlName="sellPrice" type="number" placeholder="0"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('sellPrice')?.invalid && productForm.get('sellPrice')?.touched">
-      Harga jual harus angka lebih dari 0.
-    </ion-note>
+      <ion-item>
+        <ion-input label="Harga Jual" labelPlacement="stacked" formControlName="sellPrice" type="number"
+          placeholder="0"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Stok</ion-label>
-      <ion-input formControlName="stock" type="number" placeholder="0"></ion-input>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
-      Stok tidak boleh kurang dari 0.
-    </ion-note>
+      <ion-item>
+        <ion-input label="Stok" labelPlacement="stacked" formControlName="stock" type="number"
+          placeholder="0"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Deskripsi</ion-label>
-      <ion-textarea formControlName="description" placeholder="Masukkan deskripsi produk..."
-        [autoGrow]="true"></ion-textarea>
-    </ion-item>
-    <ion-note color="danger" *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
-      Deskripsi wajib diisi.
-    </ion-note>
+      <ion-item>
+        <ion-textarea label="Deskripsi" labelPlacement="stacked" formControlName="description"
+          placeholder="Masukkan deskripsi produk..." [autoGrow]="true"></ion-textarea>
+      </ion-item>
 
-    <ion-button expand="block" type="submit" class="ion-margin-top" [disabled]="productForm.invalid" color="primary"
-      id="btnSave">
-      {{ isEdit ? 'Update Produk' : 'Simpan Produk' }}
-    </ion-button>
+      <!-- Pengecekan validasi (pola sama seperti setting.page.html kelas Week 2) -->
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('name')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Nama produk diisi (min. 3 karakter)</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('category')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Kategori diisi</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('buyPrice')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Harga beli valid</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('sellPrice')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Harga jual valid</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('stock')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Stok valid</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [checked]="productForm.get('description')?.valid" disabled="true" labelPlacement="end"
+          justify="start">Deskripsi diisi</ion-checkbox>
+      </ion-item>
+
+      <!-- Tombol + Alert (pola sama seperti newpasta Week 6) -->
+      <ion-item>
+        <ion-button id="btnSimpan" (click)="save()" [disabled]="productForm.invalid" expand="block" color="primary">
+          {{ isEdit ? 'Update Produk' : 'Simpan Produk' }}
+        </ion-button>
+        <ion-alert trigger="btnSimpan" header="Berhasil"
+          [message]="isEdit ? 'Produk berhasil diupdate!' : 'Produk baru berhasil disimpan!'"
+          [buttons]="alertButtons"></ion-alert>
+      </ion-item>
+
+    </ion-list>
   </form>
-
-  <ion-alert trigger="btnSave" header="Berhasil"
-    [message]="isEdit ? 'Produk berhasil diupdate!' : 'Produk baru berhasil disimpan!'" [buttons]="alertButtons">
-  </ion-alert>
 </ion-content>
