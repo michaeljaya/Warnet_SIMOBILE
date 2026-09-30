@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./produkform/produkform.module').then(m => m.ProdukformPageModule)
   },
   {
-    path: 'produkform/:id',
+    path: 'produkedit/:id',
     loadChildren: () => import('./produkform/produkform.module').then(m => m.ProdukformPageModule)
   },
   {

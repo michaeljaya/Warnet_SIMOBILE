@@ -10,8 +10,6 @@
 <ion-content class="ion-padding">
   <form [formGroup]="productForm">
     <ion-list>
-
-      <!-- Pola input: label + labelPlacement (sesuai newpasta & setting kelas Week 6) -->
       <ion-item>
         <ion-input label="Nama Produk" labelPlacement="stacked" formControlName="name"
           placeholder="Masukkan nama produk"></ion-input>
@@ -54,7 +52,7 @@
         <ion-checkbox slot="end" [checked]="productForm.get('description')?.valid" disabled="true"></ion-checkbox>
       </ion-item>
 
-      <!-- Tombol + Alert (pola sama seperti newpasta Week 6) -->
+      <!-- Tombol + Alert -->
       <ion-item>
         <ion-button id="btnSimpan" (click)="save()" [disabled]="productForm.invalid" expand="block" color="primary">
           {{ isEdit ? 'Update Produk' : 'Simpan Produk' }}
