@@ -1,16 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Dashboard</ion-title>
+    <ion-title>Dashboard SIMOBILE</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div style="display: flex; justify-content: flex-start; margin-bottom: 10px;" class="fade-in">
+    <ion-button fill="outline" color="solid" shape="round" (click)="refreshData()">
+      <ion-icon name="refresh" slot="start"></ion-icon>
+      Refresh
+    </ion-button>
+  </div>
+
+  <ion-card class="fade-in">
+    <ion-card-header>
+      <ion-card-title>Ringkasan Hari Ini</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        
+        <ion-item>
+          <ion-icon name="pricetags-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>Total Produk</ion-label>
+          <ion-badge color="secondary">{{ totalProducts }}</ion-badge>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="cart-outline" slot="start" color="success"></ion-icon>
+          <ion-label>Transaksi Hari Ini</ion-label>
+          <ion-badge color="success">{{ totalTransaksiHariIni }}</ion-badge>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="wallet-outline" slot="start" color="warning"></ion-icon>
+          <ion-label>Pendapatan Hari Ini</ion-label>
+          <ion-note slot="end" style="font-weight: bold; color: var(--ion-color-dark);">
+            Rp {{ totalPendapatanHariIni }}
+          </ion-note>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="trophy-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Produk Terlaris</ion-label>
+          <ion-note slot="end" style="font-weight: bold; color: var(--ion-color-dark);">
+            {{ bestSeller }}
+          </ion-note>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>
