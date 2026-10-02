@@ -23,11 +23,19 @@ export class TransaksiPage implements OnInit {
   }
 
   isRefreshing = false;
+  showAlertError = false;
+
+  errorButtons = [
+    {
+      text: 'Mengerti',
+      handler: () => {
+        this.showAlertError = false;
+      }
+    }
+  ];
 
   refreshData() {
     this.isRefreshing = true;
-    
-    // Simulasi proses memuat data dengan durasi 800ms
     setTimeout(() => {
       this.isRefreshing = false;
     }, 800);
@@ -38,8 +46,14 @@ export class TransaksiPage implements OnInit {
     {
       text: 'Konfirmasi',
       handler: () => {
+        if (this.cartService.cart.length === 0) {
+          this.showAlertError = true;
+          return;
+        }
+
         this.transactionService.addTransaction(this.cartService.cart, this.cartService.getTotal());
         this.cartService.clearCart();
+
         setTimeout(() => {
           this.router.navigate(['/riwayattransaksi']);
         }, 10);
@@ -48,16 +62,29 @@ export class TransaksiPage implements OnInit {
   ];
 
   hapusItem(productId: number) {
+    if (this.cartService.cart.length === 0) {
+      this.showAlertError = true;
+      return;
+    }
     this.cartService.removeFromCart(productId);
   }
 
   tambahQty(product: any) {
+    if (this.cartService.cart.length === 0) {
+      this.showAlertError = true;
+      return;
+    }
     if (product.stock > 0) {
       this.cartService.tambahKeranjang(product);
     }
   }
 
   kurangiQty(product: any) {
+    if (this.cartService.cart.length === 0) {
+      this.showAlertError = true;
+      return;
+    }
+
     const item = this.cartService.getCart().find(c => c.product.id === product.id);
     if (item) {
       if (item.quantity > 1) {
