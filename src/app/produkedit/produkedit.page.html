@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/produk"></ion-back-button>
     </ion-buttons>
-    <ion-title>Tambah Produk</ion-title>
+    <ion-title>Edit Produk</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,19 +12,19 @@
     <ion-list>
 
       <ion-item>
-        <ion-input label="Nama Produk" labelPlacement="stacked" [(ngModel)]="nama"
-          placeholder="Masukkan nama produk (min. 3 karakter)"></ion-input>
+        <ion-input label="Nama Produk" labelPlacement="stacked" [(ngModel)]="editNama"
+          placeholder="Masukkan nama produk"></ion-input>
         <ion-checkbox slot="end" [checked]="namaValid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-input label="Link Gambar" labelPlacement="stacked" [(ngModel)]="gambar" type="url"
+        <ion-input label="Link Gambar" labelPlacement="stacked" [(ngModel)]="editGambar" type="url"
           placeholder="https://example.com/gambar.jpg"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-select label="Kategori" labelPlacement="stacked" [(ngModel)]="kategori" placeholder="Pilih Kategori Produk"
-          interface="alert">
+        <ion-select label="Kategori" labelPlacement="stacked" [(ngModel)]="editKategori"
+          placeholder="Pilih Kategori Produk" interface="alert">
           <ion-select-option value="Sembako">Sembako</ion-select-option>
           <ion-select-option value="Makanan">Makanan</ion-select-option>
           <ion-select-option value="Minuman">Minuman</ion-select-option>
@@ -35,35 +35,35 @@
       </ion-item>
 
       <ion-item>
-        <ion-input label="Harga Beli" labelPlacement="stacked" [(ngModel)]="hargaBeli" type="number"
+        <ion-input label="Harga Beli" labelPlacement="stacked" [(ngModel)]="editHargaBeli" type="number"
           placeholder="0"></ion-input>
         <ion-checkbox slot="end" [checked]="hargaBeliValid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-input label="Harga Jual" labelPlacement="stacked" [(ngModel)]="hargaJual" type="number"
+        <ion-input label="Harga Jual" labelPlacement="stacked" [(ngModel)]="editHargaJual" type="number"
           placeholder="0"></ion-input>
         <ion-checkbox slot="end" [checked]="hargaJualValid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-input label="Stok" labelPlacement="stacked" [(ngModel)]="stok" type="number" placeholder="0"></ion-input>
+        <ion-input label="Stok" labelPlacement="stacked" [(ngModel)]="editStok" type="number"
+          placeholder="0"></ion-input>
         <ion-checkbox slot="end" [checked]="stokValid" disabled="true"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-textarea label="Deskripsi" labelPlacement="stacked" [(ngModel)]="deskripsi"
+        <ion-textarea label="Deskripsi" labelPlacement="stacked" [(ngModel)]="editDeskripsi"
           placeholder="Masukkan deskripsi produk..." [autoGrow]="true"></ion-textarea>
         <ion-checkbox slot="end" [checked]="deskripsiValid" disabled="true"></ion-checkbox>
       </ion-item>
     </ion-list>
-
     <div style="padding: 15px 0;">
-      <ion-button id="btnSimpan" (click)="simpanProduk()" [disabled]="!formValid" expand="block" color="primary">
-        Simpan Produk
+      <ion-button id="btnUpdate" (click)="updateProduk()" [disabled]="!formValid" expand="block" color="primary">
+        Update Produk
       </ion-button>
 
-      <ion-alert trigger="btnSimpan" header="Berhasil" message="Produk baru berhasil disimpan!"
+      <ion-alert trigger="btnUpdate" header="Berhasil" message="Produk berhasil diupdate!"
         [buttons]="alertButtons"></ion-alert>
     </div>
   </div>

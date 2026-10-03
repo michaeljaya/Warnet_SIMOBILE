@@ -35,27 +35,27 @@
 <ion-content class="ion-padding">
   <ion-grid class="fade-in">
     <ion-row>
-      <ion-col size="6" *ngFor="let p of filterProduk">
+      <ion-col size="6" size-md="3" *ngFor="let p of filterProduk">
         <ion-card>
-          <img alt="{{ p.name }}" src="{{ p.image ? p.image : 'assets/placeholder.svg' }}"
-            style="width: 100%; aspect-ratio: 4/3; object-fit: contain; padding: 10px; max-height: 250px;" />
+          <img alt="{{ p.name }}" src="{{ p.image ? p.image : 'assets/placeholder.svg' }}" (error)="p.image = ''"
+            style="width: 100%; aspect-ratio: 4/3; object-fit: contain; padding: 10px; max-height: 200px;" />
           <ion-card-header>
             <ion-card-title style="font-size:14px;">{{ p.name }}</ion-card-title>
             <ion-card-subtitle>Rp {{ p.sellPrice | number }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-chip [color]="p.stock > 0 ? 'success' : 'danger'" style="margin:0;">
-              <ion-label>{{ p.stock > 0 ? 'Stok: ' + p.stock : 'Habis' }}</ion-label>
+            <ion-chip [color]="p.stock > 0 ? 'success' : 'danger'" style="margin:0; font-weight: bold;">
+              <ion-label style="color: var(--ion-text-success);">{{ p.stock > 0 ? 'Stok: ' + p.stock : 'Habis' }}</ion-label>
             </ion-chip>
           </ion-card-content>
 
           <div style="padding: 0 5px 8px 5px;">
-            <ion-button expand="block" size="small" color="primary" routerLink="/produkdetail/{{ p.id }}"
+            <ion-button fill="outline" expand="block" size="small" color="primary" routerLink="/produkdetail/{{ p.id }}"
               style="margin: 0 0 5px 0;">
               Detail
             </ion-button>
 
-            <ion-button *ngIf="dapatkanQtyKeranjang(p) === 0" expand="block" size="small" color="success"
+            <ion-button *ngIf="dapatkanQtyKeranjang(p) === 0" expand="block" size="small" [color]="p.stock > 0 ? 'primary' : 'danger'"
               (click)="tambahKeKeranjang(p)" [disabled]="p.stock === 0" style="margin:0;">
               + Keranjang
             </ion-button>

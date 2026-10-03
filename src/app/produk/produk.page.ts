@@ -34,9 +34,9 @@ export class ProdukPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Daftar produk berhasil dimuat ulang!',
       duration: 1500, // muncul selama 1.5 detik
-      position: 'top', // muncul di atas
+      position: 'top', 
       color: 'success',
-      animated: true // efek animasinya aktif 
+      animated: true
     });
     await toast.present();
   }
@@ -83,9 +83,9 @@ export class ProdukPage implements OnInit {
     const toast = await this.toastController.create({
       message: product.name + ' berhasil ditambahkan!',
       duration: 1500, // muncul selama 1.5 detik
-      position: 'top', // muncul di atas
+      position: 'top', 
       color: 'success',
-      animated: true // efek animasinya aktif 
+      animated: true
     });
     await toast.present();
   }

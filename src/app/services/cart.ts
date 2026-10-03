@@ -9,41 +9,65 @@ export interface CartItem {
 @Service()
 export class CartService {
 
-  // Array keranjang belanja
+  //Array keranjang belanja
   cart: CartItem[] = [];
 
-  // Ambil semua item di keranjang
+  //Ambil semua item di keranjang
   getCart(): CartItem[] {
     return this.cart;
   }
 
-  // Tambah produk ke keranjang
+  //tambah produk ke keranjang
   tambahKeranjang(product: Product) {
-    const item = this.cart.find(c => c.product.id === product.id);
-    if (item) {
-      item.quantity += 1;
-    } else {
-      this.cart.push({ product, quantity: 1 });  
+    let sudahAda = false;
+
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].product.id === product.id) {
+        this.cart[i].quantity += 1;
+        sudahAda = true;
+        break;
+      }
     }
-    product.stock--;  // Kurangi stok produk
+
+    if (sudahAda === false) {
+      this.cart.push({ product: product, quantity: 1 });
+    }
+
+    product.stock -= 1;
   }
 
-  // Hapus item dari keranjang dan kembalikan stok
+  //hapus item dari keranjang dan kembalikan stok
   removeFromCart(productId: number) {
-    const item = this.cart.find(c => c.product.id === productId);
-    if (item) {
-      item.product.stock += item.quantity;  // Kembalikan stok
-      this.cart = this.cart.filter(c => c.product.id !== productId);
+    let indexYangDihapus = -1;
+
+    //Cari index barang yang mau dihapus
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].product.id === productId) {
+        //Kembalikan stoknya
+        this.cart[i].product.stock += this.cart[i].quantity;
+        indexYangDihapus = i;
+        break;
+      }
+    }
+    if (indexYangDihapus !== -1) {
+      this.cart.splice(indexYangDihapus, 1);
     }
   }
 
-  // Hitung total harga seluruh keranjang
+  //hitung total harga seluruh keranjang
   getTotal(): number {
-    return this.cart.reduce((total, item) => total + (item.product.sellPrice * item.quantity), 0);
+    let totalHarga = 0;
+
+    for (let i = 0; i < this.cart.length; i++) {
+      const item = this.cart[i];
+      totalHarga = totalHarga + (item.product.sellPrice * item.quantity);
+    }
+
+    return totalHarga;
   }
 
-  // Kosongkan keranjang setelah checkout
+  //kosongkan keranjang setelah checkout
   clearCart() {
-    this.cart = [];
+    this.cart.length = 0;
   }
 }

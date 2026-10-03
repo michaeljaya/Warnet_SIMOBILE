@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { CartService } from '../services/cart';
 import { TransactionService } from '../services/transaction';
 
@@ -13,85 +13,95 @@ import { TransactionService } from '../services/transaction';
 export class TransaksiPage implements OnInit {
 
   constructor(
-    public cartService: CartService,
+    public cartService: CartService, 
     public transactionService: TransactionService,
     private alertController: AlertController,
+    private toastController: ToastController,
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  isRefreshing = false;
-  showAlertError = false;
-
-  errorButtons = [
-    {
-      text: 'Mengerti',
-      handler: () => {
-        this.showAlertError = false;
-      }
+  async prosesCheckout() {
+    const keranjang = this.cartService.getCart();
+    if (keranjang.length === 0) {
+      const alertKosong = await this.alertController.create({
+        header: 'Keranjang Kosong',
+        message: 'Anda belum menambahkan produk apapun ke keranjang.',
+        buttons: ['Mengerti']
+      });
+      await alertKosong.present();
+      return; 
     }
-  ];
 
-  refreshData() {
-    this.isRefreshing = true;
-    setTimeout(() => {
-      this.isRefreshing = false;
-    }, 800);
-  }
+    const alertKonfirmasi = await this.alertController.create({
+      header: 'Konfirmasi Pesanan',
+      message: 'Apakah Anda yakin ingin memproses transaksi ini?',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel'
+        },
+        {
+          text: 'Konfirmasi',
+          handler: async () => {
+            
+            this.transactionService.addTransaction(keranjang, this.cartService.getTotal());
+            this.cartService.clearCart();
 
-  checkoutButtons = [
-    { text: 'Batal', role: 'cancel' },
-    {
-      text: 'Konfirmasi',
-      handler: () => {
-        if (this.cartService.cart.length === 0) {
-          this.showAlertError = true;
-          return;
+            const alertSukses = await this.alertController.create({
+              header: 'Berhasil',
+              message: 'Checkout berhasil! Transaksi tersimpan di Riwayat Transaksi.',
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {
+                    this.router.navigate(['/riwayattransaksi']);
+                  }
+                }
+              ]
+            });
+            await alertSukses.present();
+
+          }
         }
+      ]
+    });
+    await alertKonfirmasi.present();
+  }
 
-        this.transactionService.addTransaction(this.cartService.cart, this.cartService.getTotal());
-        this.cartService.clearCart();
-
-        setTimeout(() => {
-          this.router.navigate(['/riwayattransaksi']);
-        }, 10);
-      }
-    }
-  ];
+  async refreshData() {
+    const toast = await this.toastController.create({
+      message: 'Keranjang belanja berhasil diperbarui!',
+      duration: 1000,
+      position: 'top',
+      color: 'success',
+    });
+    await toast.present();
+  }
 
   hapusItem(productId: number) {
-    if (this.cartService.cart.length === 0) {
-      this.showAlertError = true;
-      return;
-    }
     this.cartService.removeFromCart(productId);
   }
 
   tambahQty(product: any) {
-    if (this.cartService.cart.length === 0) {
-      this.showAlertError = true;
-      return;
-    }
     if (product.stock > 0) {
       this.cartService.tambahKeranjang(product);
     }
   }
 
   kurangiQty(product: any) {
-    if (this.cartService.cart.length === 0) {
-      this.showAlertError = true;
-      return;
-    }
-
-    const item = this.cartService.getCart().find(c => c.product.id === product.id);
-    if (item) {
-      if (item.quantity > 1) {
-        item.quantity -= 1;
-        product.stock += 1;
-      } else {
-        this.cartService.removeFromCart(product.id);
+    const keranjang = this.cartService.getCart();
+    for (let i = 0; i < keranjang.length; i++) {
+      const item = keranjang[i];
+      if (item.product.id === product.id) {
+        if (item.quantity > 1) {
+          item.quantity -= 1;
+          product.stock += 1;
+        } else {
+          this.cartService.removeFromCart(product.id);
+        }
+        break; 
       }
     }
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { ProductService } from '../services/product';
 import { TransactionService } from '../services/transaction';
 
@@ -13,42 +14,75 @@ export class DashboardPage implements OnInit {
   totalTransaksiHariIni = 0;
   totalPendapatanHariIni = 0;
   bestSeller = '-';
-  isRefreshing = false;
 
   constructor(
     private productService: ProductService,
-    private txService: TransactionService
+    private txService: TransactionService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.loadData();
   }
-
-  refreshData() {
-    this.isRefreshing = true;
-    this.loadData(); 
-    
-    setTimeout(() => {
-      this.isRefreshing = false;
-    }, 800);
+  //untuk refresh data
+  async refreshData() {
+    this.loadData();
+    const toast = await this.toastController.create({
+      message: 'Data Dashboard berhasil dimuat ulang!',
+      duration: 1500,
+      position: 'top',
+      color: 'success',
+    });
+    await toast.present();
   }
 
   loadData() {
+    //ambil total produk
     this.totalProducts = this.productService.ambilProduk().length;
+    
+    //abil total transaksi dan pendapatan
     this.totalTransaksiHariIni = this.txService.getTodayTransactions().length;
     this.totalPendapatanHariIni = this.txService.getTodayTotal();
 
-    const allTx = this.txService.getTransactions();
-    if (allTx.length > 0) {
-      const countMap: { [key: string]: number } = {};
-      allTx.forEach(tx => {
-        tx.items.forEach(item => {
-          countMap[item.product.name] = (countMap[item.product.name] || 0) + item.quantity;
-        });
-      });
-      this.bestSeller = Object.entries(countMap).sort((a, b) => b[1] - a[1])[0][0];
-    } else {
+    //cari Produk Terlaris
+    const semuaTransaksi = this.txService.getTransactions();
+    
+    if (semuaTransaksi.length === 0) {
       this.bestSeller = 'Belum ada transaksi';
+    } else {
+      let namaTerlaris = '';
+      let jumlahTerbanyak = 0;
+
+      const semuaProduk = this.productService.ambilProduk();
+
+      for (let p = 0; p < semuaProduk.length; p++) {
+        const produkSekarang = semuaProduk[p];
+        let totalTerjualProdukIni = 0;
+        
+        for (let t = 0; t < semuaTransaksi.length; t++) {
+          const transaksi = semuaTransaksi[t];
+          
+          for (let i = 0; i < transaksi.items.length; i++) {
+            const itemBeli = transaksi.items[i];
+            
+            if (itemBeli.product.id === produkSekarang.id) {
+              totalTerjualProdukIni = totalTerjualProdukIni + itemBeli.quantity;
+            }
+          }
+        }
+
+        if (totalTerjualProdukIni > jumlahTerbanyak) {
+          jumlahTerbanyak = totalTerjualProdukIni;
+          namaTerlaris = produkSekarang.name;
+        }
+      }
+
+      //Tampilkan hasil
+      if (jumlahTerbanyak > 0) {
+        this.bestSeller = namaTerlaris;
+      } else {
+        this.bestSeller = 'Belum ada transaksi';
+      }
     }
   }
 }

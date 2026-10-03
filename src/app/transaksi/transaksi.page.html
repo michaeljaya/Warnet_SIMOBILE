@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,81 +7,90 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content class="ion-padding">
   
-  <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px;" class="fade-in">
-    <ion-button fill="outline" color="solid" shape="round" (click)="refreshData()">
+  <div style="display: flex; justify-content: space-between; margin-bottom: 15px;" class="slide-up">
+    <ion-button fill="outline" color="success" shape="round" (click)="refreshData()">
       <ion-icon name="refresh" slot="start"></ion-icon>
       Refresh
     </ion-button>
-
-    <ion-button routerLink="/riwayattransaksi" fill="outline" color="success" shape="round">
-      <ion-icon name="receipt-outline" slot="start"></ion-icon>
+    
+    <ion-button fill="outline" color="success" shape="round" routerLink="/riwayattransaksi">
+      <ion-icon name="receipt" slot="start"></ion-icon>
       Riwayat Transaksi
     </ion-button>
   </div>
 
-  <div *ngIf="cartService.cart.length === 0" class="ion-text-center fade-in" style="margin-top: 50px;">
-    <ion-icon name="cart-outline" style="font-size: 64px; color: #ccc;"></ion-icon>
-    <p>Keranjang masih kosong.</p>
+  <div *ngIf="cartService.getCart().length === 0" class="ion-text-center slide-up" style="margin-top: 50px;">
+    <ion-icon name="cart-outline" style="font-size: 80px; color: var(--ion-color-medium);"></ion-icon>
+    <p style="color: var(--ion-color-medium); font-size: 16px;">Keranjang masih kosong.</p>
+    <ion-button routerLink="/produk" fill="outline">Mulai Belanja</ion-button>
   </div>
+  
+  <ion-list *ngIf="cartService.getCart().length > 0" lines="none" class="slide-up">
+    <ion-item-sliding *ngFor="let item of cartService.getCart()" style="margin-bottom: 10px;">
+      
+      <ion-item style="--padding-start: 0; --inner-padding-end: 0;">
+        <ion-card style="width: 100%; margin: 0; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <ion-card-content style="padding: 10px; display: flex; align-items: center;">
+            
+            <img [src]="item.product.image ? item.product.image : 'assets/placeholder.svg'"
+                 (error)="item.product.image = ''"
+                 style="width: 70px; height: 70px; object-fit: contain; margin-right: 15px; border-radius: 8px;">
 
-  <ion-list *ngIf="cartService.cart.length > 0">
-    <ion-item-sliding *ngFor="let item of cartService.cart" class="slide-up">
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <img [src]="item.product.image ? item.product.image : 'assets/placeholder.svg'" alt="gambar produk" />
-        </ion-thumbnail>
+            <div style="flex: 1;">
+              
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h3 style="font-weight: bold; margin: 0; font-size: 15px; line-height: 1.2;">{{ item.product.name }}</h3>
+                  <p style="margin: 5px 0 0 0; font-size: 13px; color: var(--ion-text-dark);">Rp {{ item.product.sellPrice | number}}</p>
+                </div>
+                
+                <span style="font-weight: bold; font-size: 14px; color: var(--ion-color-success); white-space: nowrap; margin-left: 10px;">
+                  Rp {{ item.product.sellPrice * item.quantity | number}}
+                </span>
+              </div>
+              
+              <div style="display: flex; align-items: center; margin-top: 10px;">
+                <ion-button fill="clear" color="medium" size="small" (click)="kurangiQty(item.product)"
+                  style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
+                  <ion-icon name="remove"></ion-icon>
+                </ion-button>
+                
+                <span style="font-weight: bold; font-size: 15px; margin: 0 15px;">{{ item.quantity }}</span>
+                
+                <ion-button fill="clear" color="medium" size="small" (click)="tambahQty(item.product)"
+                  [disabled]="item.product.stock === 0" style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </div>
 
-        <ion-label>
-          <h2 style="font-weight: bold;">{{ item.product.name }}</h2>
-          <p>Rp {{ item.product.sellPrice }}</p>
-          <div style="display: flex; align-items: center; margin-top: 8px;">
-            <ion-button size="small" fill="clear" color="dark" (click)="kurangiQty(item.product)"
-              style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
-              <ion-icon name="remove"></ion-icon>
-            </ion-button>
-
-            <span style="margin: 0 12px; font-size: 16px; font-weight: bold;">{{ item.quantity }}</span>
-
-            <ion-button size="small" fill="clear" color="dark" (click)="tambahQty(item.product)"
-              [disabled]="item.product.stock === 0" style="margin: 0; --padding-start: 5px; --padding-end: 5px;">
-              <ion-icon name="add"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-label>
-        <ion-note slot="end" color="primary" style="font-weight: bold;">
-          Rp {{ item.product.sellPrice * item.quantity }}
-        </ion-note>
-
+            </div>
+          </ion-card-content>
+        </ion-card>
       </ion-item>
 
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="hapusItem(item.product.id)">
-          Hapus
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
+      
     </ion-item-sliding>
   </ion-list>
-
-  <ion-alert [isOpen]="showAlertError" header="Peringatan!" 
-    message="Produk ini sudah di-checkout!"
-    [buttons]="errorButtons">
-  </ion-alert>
-  
 </ion-content>
 
-<ion-footer *ngIf="cartService.cart.length > 0" class="slide-up">
+<ion-footer>
   <ion-toolbar>
-    <ion-title size="small">Total: Rp {{ cartService.getTotal() }}</ion-title>
-
-    <ion-button slot="end" color="success" id="btnCheckout" [disabled]="cartService.cart.length === 0" style="margin-right: 10px;">
-      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
-      Konfirmasi
-    </ion-button>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+      <span style="font-size: 14px; color: var(--ion-text-dark);">Total: <span
+          style="font-weight: bold; font-size: 18px; color: var(--ion-color-success);">Rp {{ cartService.getTotal() | number}}</span></span>
+      
+          <ion-button color="success"(click)="prosesCheckout()">
+        <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+        KONFIRMASI
+      </ion-button>
+      
+    </div>
   </ion-toolbar>
-
-  <ion-alert trigger="btnCheckout" header="Konfirmasi Pembayaran" message="Selesaikan transaksi ini?"
-    [buttons]="checkoutButtons">
-  </ion-alert>
 </ion-footer>

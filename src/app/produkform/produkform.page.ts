@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product';
 
@@ -11,70 +9,67 @@ import { ProductService } from '../services/product';
   standalone: false,
 })
 export class ProdukformPage implements OnInit {
-  productForm: FormGroup;
-  isEdit = false;
-  editId: number = 0;
+  //Variabel
+  nama: string = '';
+  gambar: string = '';
+  kategori: string = '';
+  hargaBeli: number = 0;
+  hargaJual: number = 0;
+  stok: number = 0;
+  deskripsi: string = '';
 
-  alertButtons = [{
+  public alertButtons = [{
     text: 'OK',
     handler: () => {
       this.router.navigate(['/produk']);
     }
   }];
 
+  //Getter untuk validasi
+  get namaValid(): boolean {
+    return this.nama.length >= 3;
+  }
+  get kategoriValid(): boolean {
+    return this.kategori.length > 0;
+  }
+  get hargaBeliValid(): boolean {
+    return this.hargaBeli > 0;
+  }
+  get hargaJualValid(): boolean {
+    return this.hargaJual > 0;
+  }
+  get stokValid(): boolean {
+    return this.stok >= 0;
+  }
+  get deskripsiValid(): boolean {
+    return this.deskripsi.length > 0;
+  }
+  get formValid(): boolean {
+    return this.namaValid && this.kategoriValid && this.hargaBeliValid
+      && this.hargaJualValid && this.stokValid && this.deskripsiValid;
+  }
+
   constructor(
-    private fb: FormBuilder,
     private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      image: ['', Validators.required],
-      category: ['', Validators.required],
-      buyPrice: [0, [Validators.required, Validators.min(0)]],
-      sellPrice: [0, [Validators.required, Validators.min(0)]],
-      stock: [0, [Validators.required, Validators.min(0)]],
-      description: ['', Validators.required]
-    });
+    private router: Router
+  ) { }
+
+  ngOnInit() { }
+
+  // Method simpan
+  simpanProduk() {
+    this.productService.tambahProduk(this.nama, this.gambar, this.kategori, 
+      this.hargaBeli, this.hargaJual, this.stok, this.deskripsi);
+    this.resetForm();
   }
 
-  ngOnInit() {
-    // cek apakah ada paramter id 
-    this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.isEdit = true;
-        this.editId = Number(params['id']);
-        // Ambil data produk yang mau kita edit lalu isi form nya
-        const product = this.productService.produkId(this.editId);
-        if (product) {
-          this.productForm.patchValue({
-            name: product.name,
-            image: product.image,
-            category: product.category,
-            buyPrice: product.buyPrice,
-            sellPrice: product.sellPrice,
-            stock: product.stock,
-            description: product.description,
-          });
-        }
-      }
-    });
+  resetForm() {
+    this.nama = '';
+    this.gambar = '';
+    this.kategori = '';
+    this.hargaBeli = 0;
+    this.hargaJual = 0;
+    this.stok = 0;
+    this.deskripsi = '';
   }
-
-  save() {
-    if (this.productForm.valid) {
-      const v = this.productForm.value;
-      // Hanya jalankan logika update produk
-      if (this.isEdit) {
-        //update produk 
-        this.productService.updateProduk(this.editId, v.name, v.image, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
-      } else {
-        //tambah produk
-        this.productService.tambahProduk(v.name, v.image, v.category, v.buyPrice, v.sellPrice, v.stock, v.description);
-      }
-    }
-  }
-
 }
-

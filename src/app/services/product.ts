@@ -166,6 +166,16 @@ export class ProductService {
             description: 'Teh botol siap minum dengan rasa teh melati yang segar.',
             image: ''
         },
+        {
+            id: 16,
+            name: 'Susu UHT Cokelat 200ml',
+            category: 'Minuman',
+            buyPrice: 4500,
+            sellPrice: 5500,
+            stock: 120,
+            description: 'Susu cair segar siap minum rasa cokelat yang kaya nutrisi.',
+            image: 'https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//93/MTA-5635550/ultra_jaya_susu_ultra_milk_rasa_cokelat_200ml_-_star_farm_full02_fjhyo426.jpg'
+        }
     ];
 
     //Method untuk mengambil produk

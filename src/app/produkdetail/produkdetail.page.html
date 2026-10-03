@@ -26,15 +26,16 @@
           </ion-item>
           <ion-item>
             <ion-label>Harga Beli</ion-label>
-            <ion-note slot="end">Rp {{ product.buyPrice }}</ion-note>
+            <span slot="end" style="color: var(--ion-color-medium); font-size: 14px;">Rp {{ product.buyPrice }}</span>
           </ion-item>
           <ion-item>
             <ion-label>Harga Jual</ion-label>
-            <ion-note slot="end">Rp {{ product.sellPrice }}</ion-note>
+            <span slot="end" style="color: var(--ion-color-medium); font-size: 14px;">Rp {{ product.sellPrice }}</span>
           </ion-item>
           <ion-item>
             <ion-label>Keuntungan</ion-label>
-            <ion-note slot="end" color="success">Rp {{ product.sellPrice - product.buyPrice }}</ion-note>
+            <span slot="end" style="color: var(--ion-color-success); font-weight: bold; font-size: 14px;">Rp {{
+              product.sellPrice - product.buyPrice }}</span>
           </ion-item>
           <ion-item>
             <ion-label>Sisa Stok</ion-label>
@@ -47,6 +48,10 @@
         <ion-button *ngIf="dapatkanQtyKeranjang() === 0" expand="block" color="success" (click)="tambahKeKeranjang()"
           [disabled]="product.stock === 0">
           {{ product.stock === 0 ? 'Stok Habis' : '+ Keranjang' }}
+        </ion-button>
+        <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/produkedit', product.id]"
+          class="ion-margin-top">
+          Edit Produk
         </ion-button>
 
         <div *ngIf="dapatkanQtyKeranjang() > 0"
@@ -67,9 +72,6 @@
       </div>
     </ion-card>
 
-    <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/produkedit', product.id]"
-      class="ion-margin-top">
-      Edit Produk
-    </ion-button>
+
   </div>
 </ion-content>

@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'produkedit/:id',
-    loadChildren: () => import('./produkform/produkform.module').then(m => m.ProdukformPageModule)
+    loadChildren: () => import('./produkedit/produkedit.module').then(m => m.ProdukeditPageModule)
   },
   {
     path: 'transaksi',
@@ -55,7 +55,12 @@ const routes: Routes = [
       { path: 'transaksi', loadChildren: () => import('./transaksi/transaksi.module').then(m => m.TransaksiPageModule) },
       { path: 'profil', loadChildren: () => import('./profil/profil.module').then(m => m.ProfilPageModule) },
     ]
+  },
+  {
+    path: 'produkedit',
+    loadChildren: () => import('./produkedit/produkedit.module').then( m => m.ProdukeditPageModule)
   }
+
 ];
 
 @NgModule({
