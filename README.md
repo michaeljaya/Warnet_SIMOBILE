@@ -26,7 +26,7 @@ Prototipe aplikasi kasir mobile bernama **SIMOBILE** untuk "Toko Makmur Jaya", d
 ### Langkah-langkah
 1. Clone repository:
    ```bash
-   git clone https://github.com/user/Warnet_SIMOBILE.git
+   git clone https://github.com/michaeljaya/Warnet_SIMOBILE.git
    ```
 2. Masuk ke folder project:
    ```bash
@@ -46,7 +46,7 @@ Prototipe aplikasi kasir mobile bernama **SIMOBILE** untuk "Toko Makmur Jaya", d
 
 | No | Fitur | Keterangan |
 |----|-------|------------|
-| 1 | **Navigasi Tab + Side Menu** | 5 tab (Dashboard, Produk, Tambah, Transaksi, Profil) + Side Menu (Dashboard, Produk, Pengaturan, Tentang Aplikasi) |
+| 1 | **Navigasi Tab + Side Menu** | 5 tab (Dashboard, Produk, Tambah, Transaksi, Profil) + Side Menu (Profil, Dashboard, Produk, Riwayat Transaksi, Pengaturan, Tentang Aplikasi) |
 | 2 | **Dashboard** | Ringkasan total produk, jumlah transaksi hari ini, total pendapatan, dan produk terlaris |
 | 3 | **Pencarian Produk Real-Time** | Filter produk langsung saat mengetik menggunakan `ngModel` (two-way binding) |
 | 4 | **Filter Kategori** | Segment button untuk memfilter produk berdasarkan kategori (Sembako, Makanan, Minuman, dll) |
@@ -80,12 +80,13 @@ src/
 │   ├── dashboard/         # Halaman ringkasan
 │   ├── produk/            # Daftar produk + pencarian
 │   ├── produkdetail/      # Detail produk (route param :id)
-│   ├── produkform/        # Form tambah & edit (Reactive Forms)
+│   ├── produkform/        # Form untuk menambahkan produk
+│   ├── produkedit/        # Form untuk mengedit produk
 │   ├── transaksi/         # Keranjang belanja & checkout
 │   ├── riwayattransaksi/  # Riwayat transaksi
 │   ├── pengaturan/        # Toggle mode gelap/terang
 │   ├── tentang/           # Tentang aplikasi
-│   ├── profil/            # Profil toko
+│   ├── profil/            # Profil toko (Data Diri)
 │   ├── app.component.*    # Root component (menu + tabs)
 │   └── app-routing.*      # Konfigurasi routing
 ├── assets/
