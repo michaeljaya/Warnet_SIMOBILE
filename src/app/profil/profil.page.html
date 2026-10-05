@@ -53,10 +53,13 @@
     </ion-list>
 
     <!-- Tombol Logout -->
-    <ion-button expand="block" color="danger" fill="solid" style="margin-top: 30px;" routerLink="/home">
+    <ion-button id="logout-alert" expand="block" color="danger" fill="solid" style="margin-top: 30px;">
       <ion-icon name="log-out-outline" slot="start"></ion-icon>
       Logout
     </ion-button>
 
+    <ion-alert trigger="logout-alert" header="Konfirmasi Keluar" message="Apakah Anda yakin ingin keluar dari akun ini?"
+      [buttons]="logoutButtons">
+    </ion-alert>
   </div>
 </ion-content>
