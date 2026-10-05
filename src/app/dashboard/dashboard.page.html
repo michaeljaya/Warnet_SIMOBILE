@@ -33,7 +33,7 @@
     <ion-row>
       <!-- Total Produk -->
       <ion-col size="6">
-        <ion-card style="margin: 0; height: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <ion-card routerLink="/produk" style="margin: 0; height: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;">
           <ion-card-content class="ion-text-center">
             <ion-icon name="pricetags-outline" color="success" style="font-size: 40px; margin-bottom: 5px;"></ion-icon>
             <h1 style="font-weight: bold; margin: 0;">{{ totalProducts }}</h1>
@@ -44,7 +44,7 @@
 
       <!-- Transaksi -->
       <ion-col size="6">
-        <ion-card style="margin: 0; height: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <ion-card routerLink="/riwayattransaksi" style="margin: 0; height: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;">
           <ion-card-content class="ion-text-center">
             <ion-icon name="cart-outline" color="success" style="font-size: 40px; margin-bottom: 5px;"></ion-icon>
             <h1 style="font-weight: bold; margin: 0;">{{ totalTransaksiHariIni }}</h1>
