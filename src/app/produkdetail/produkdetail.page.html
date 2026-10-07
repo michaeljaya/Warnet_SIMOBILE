@@ -59,7 +59,7 @@
 
       </ion-card-content>
       <div style="padding: 0 15px 15px 15px;">
-        <ion-button *ngIf="dapatkanQtyKeranjang() === 0" expand="block" color="success" (click)="tambahKeKeranjang()"
+        <ion-button *ngIf="dapatkanQtyKeranjang() === 0" expand="block" color="primary" (click)="tambahKeKeranjang()"
           [disabled]="product.stock === 0">
           {{ product.stock === 0 ? 'Stok Habis' : '+ Keranjang' }}
         </ion-button>
