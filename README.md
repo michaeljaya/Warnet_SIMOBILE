@@ -46,7 +46,7 @@ Prototipe aplikasi kasir mobile bernama **SIMOBILE** untuk "Toko Makmur Jaya", d
 
 | No | Fitur | Keterangan |
 |----|-------|------------|
-| 1 | **Navigasi Tab + Side Menu** | 5 tab (Dashboard, Produk, Tambah, Transaksi, Profil) + Side Menu (Profil, Dashboard, Produk, Riwayat Transaksi, Pengaturan, Tentang Aplikasi) |
+| 1 | **Navigasi Tab + Side Menu** | 4 tab (Dashboard, Produk, Riwayat Transaksi, Profil) + Side Menu (Profil, Dashboard, Produk, Riwayat Transaksi, Pengaturan, Tentang Aplikasi) |
 | 2 | **Dashboard** | Ringkasan total produk, jumlah transaksi hari ini, total pendapatan, dan produk terlaris |
 | 3 | **Pencarian Produk Real-Time** | Filter produk langsung saat mengetik menggunakan `ngModel` (two-way binding) |
 | 4 | **Filter Kategori** | Segment button untuk memfilter produk berdasarkan kategori (Sembako, Makanan, Minuman, dll) |
