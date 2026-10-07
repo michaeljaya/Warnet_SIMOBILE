@@ -49,4 +49,8 @@ export class ProdukdetailPage implements OnInit {
       }
     }
   }
+
+  get totalCartItems(): number {
+    return this.cartService.getCart().reduce((total, item) => total + item.quantity, 0);
+  }
 }

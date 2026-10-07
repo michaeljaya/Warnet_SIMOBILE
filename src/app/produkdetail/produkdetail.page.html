@@ -4,6 +4,20 @@
       <ion-back-button defaultHref="/produk"></ion-back-button>
     </ion-buttons>
     <ion-title>Detail Produk</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/produkform" color="light" fill="outline" shape="round"
+        style="margin-right: 10px; border-radius: 8px;">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/tabs/transaksi" color="light" fill="outline" shape="round"
+        style="margin-right: 10px; border-radius: 8px;">
+        <ion-icon name="cart"></ion-icon> 
+        <ion-badge *ngIf="totalCartItems > 0" color="danger" style="margin-left: 6px; font-size: 11px; padding: 4px 6px; border-radius: 12px;">
+          {{ totalCartItems }}
+        </ion-badge> 
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -49,10 +63,6 @@
           [disabled]="product.stock === 0">
           {{ product.stock === 0 ? 'Stok Habis' : '+ Keranjang' }}
         </ion-button>
-        <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/produkedit', product.id]"
-          class="ion-margin-top">
-          Edit Produk
-        </ion-button>
 
         <div *ngIf="dapatkanQtyKeranjang() > 0"
           style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--ion-color-success); border-radius: 4px; height: 45px;">
@@ -69,9 +79,12 @@
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </div>
+
+        <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/produkedit', product.id]"
+          class="ion-margin-top">
+          Edit Produk
+        </ion-button>
       </div>
     </ion-card>
-
-
   </div>
 </ion-content>

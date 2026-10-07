@@ -58,8 +58,9 @@ export class ProdukformPage implements OnInit {
 
   // Method simpan
   simpanProduk() {
-    this.productService.tambahProduk(this.nama, this.gambar, this.kategori, 
-      this.hargaBeli, this.hargaJual, this.stok, this.deskripsi);
+    this.productService.tambahProduk(this.nama, this.gambar, this.kategori,
+      Number(this.hargaBeli), Number(this.hargaJual), Number(this.stok), this.deskripsi);
+
     this.resetForm();
   }
 

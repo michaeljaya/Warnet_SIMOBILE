@@ -26,20 +26,20 @@ export class ProdukPage implements OnInit {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
-  // Tombol Refresh Manual
-  async refreshLayar() {
-    this.semuaProduk = this.productService.ambilProduk();
+  // // Tombol Refresh Manual
+  // async refreshLayar() {
+  //   this.semuaProduk = this.productService.ambilProduk();
 
-    // Efek notifikasi
-    const toast = await this.toastController.create({
-      message: 'Daftar produk berhasil dimuat ulang!',
-      duration: 1500, // muncul selama 1.5 detik
-      position: 'top', 
-      color: 'success',
-      animated: true
-    });
-    await toast.present();
-  }
+  //   // Efek notifikasi
+  //   const toast = await this.toastController.create({
+  //     message: 'Daftar produk berhasil dimuat ulang!',
+  //     duration: 1500, // muncul selama 1.5 detik
+  //     position: 'top', 
+  //     color: 'success',
+  //     animated: true
+  //   });
+  //   await toast.present();
+  // }
 
   //Setiap kali user mengetik, daftar langsung berubah
   get filterProduk(): Product[] {
@@ -107,5 +107,10 @@ export class ProdukPage implements OnInit {
         this.cartService.removeFromCart(product.id);
       }
     }
+  }
+
+  //Mendapatkan total seluruh barang di keranjang
+  get totalCartItems(): number {
+    return this.cartService.getCart().reduce((total, item) => total + item.quantity, 0);
   }
 }

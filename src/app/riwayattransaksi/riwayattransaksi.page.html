@@ -4,6 +4,14 @@
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
     <ion-title>Riwayat Transaksi</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="btnRefresh" (click)="refreshData()" color="light" fill="outline" shape="round"
+        style="margin-right: 10px; border-radius: 8px;">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-alert trigger="btnRefresh" header="Berhasil" message="Halaman riwayat transaksi berhasil diperbarui!"
+        [buttons]="['OK']"></ion-alert>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
