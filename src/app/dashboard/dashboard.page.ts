@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { ProductService } from '../services/product';
 import { TransactionService } from '../services/transaction';
 
@@ -17,26 +16,17 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private txService: TransactionService,
-    private toastController: ToastController
+    private txService: TransactionService
   ) { }
 
+  public alertButtons = ['OK'];
+
   ngOnInit() {
-    this.loadData();
-  }
-  //untuk refresh data
-  async refreshData() {
-    this.loadData();
-    const toast = await this.toastController.create({
-      message: 'Data Dashboard berhasil dimuat ulang!',
-      duration: 1500,
-      position: 'top',
-      color: 'success',
-    });
-    await toast.present();
+    this.refreshData();
   }
 
-  loadData() {
+  //untuk refresh data
+  refreshData() {
     //ambil total produk
     this.totalProducts = this.productService.ambilProduk().length;
     

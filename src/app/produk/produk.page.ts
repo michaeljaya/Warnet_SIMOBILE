@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../services/product';
 import { CartService } from '../services/cart';
-import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-produk',
@@ -18,28 +17,12 @@ export class ProdukPage implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService,
-    private toastController: ToastController
+    private cartService: CartService
   ) { }
 
   ngOnInit() {
     this.semuaProduk = this.productService.ambilProduk();
   }
-
-  // // Tombol Refresh Manual
-  // async refreshLayar() {
-  //   this.semuaProduk = this.productService.ambilProduk();
-
-  //   // Efek notifikasi
-  //   const toast = await this.toastController.create({
-  //     message: 'Daftar produk berhasil dimuat ulang!',
-  //     duration: 1500, // muncul selama 1.5 detik
-  //     position: 'top', 
-  //     color: 'success',
-  //     animated: true
-  //   });
-  //   await toast.present();
-  // }
 
   //Setiap kali user mengetik, daftar langsung berubah
   get filterProduk(): Product[] {
@@ -74,20 +57,10 @@ export class ProdukPage implements OnInit {
     this.semuaProduk = this.productService.ambilProduk();
   }
 
-  async tambahKeKeranjang(product: Product) {
+  tambahKeKeranjang(product: Product) {
     if (product.stock > 0) {
       this.cartService.tambahKeranjang(product);
     }
-
-    // Efek notifikasi
-    const toast = await this.toastController.create({
-      message: product.name + ' berhasil ditambahkan!',
-      duration: 1500, // muncul selama 1.5 detik
-      position: 'top', 
-      color: 'success',
-      animated: true
-    });
-    await toast.present();
   }
 
   //Mengambil jumlah produk ini di dalam keranjang

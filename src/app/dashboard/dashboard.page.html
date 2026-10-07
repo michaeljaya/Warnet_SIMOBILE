@@ -20,10 +20,11 @@
               <p style="margin: 5px 0 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.9);">Toko Makmur Jaya</p>
             </div>
             <div>
-              <ion-button fill="outline" color="light" shape="round" size="small" (click)="refreshData()">
+              <ion-button id="btnRefreshDashboard" fill="outline" color="light" shape="round" size="small" (click)="refreshData()">
                 <ion-icon name="refresh" slot="start"></ion-icon>
                 Refresh
               </ion-button>
+              <ion-alert trigger="btnRefreshDashboard" header="Berhasil" message="Data Dashboard berhasil dimuat ulang!" [buttons]="alertButtons"></ion-alert>
             </div>
           </ion-card-content>
         </ion-card>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { CartService } from '../services/cart';
 import { TransactionService } from '../services/transaction';
 
@@ -16,7 +16,6 @@ export class TransaksiPage implements OnInit {
     public cartService: CartService, 
     public transactionService: TransactionService,
     private alertController: AlertController,
-    private toastController: ToastController,
     private router: Router
   ) { }
 
@@ -71,13 +70,12 @@ export class TransaksiPage implements OnInit {
   }
 
   async refreshData() {
-    const toast = await this.toastController.create({
+    const alert = await this.alertController.create({
+      header: 'Berhasil',
       message: 'Keranjang belanja berhasil diperbarui!',
-      duration: 1000,
-      position: 'top',
-      color: 'success',
+      buttons: ['OK']
     });
-    await toast.present();
+    await alert.present();
   }
 
   hapusItem(productId: number) {
