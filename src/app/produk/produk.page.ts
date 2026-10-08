@@ -84,6 +84,14 @@ export class ProdukPage implements OnInit {
 
   //Mendapatkan total seluruh barang di keranjang
   get totalCartItems(): number {
-    return this.cartService.getCart().reduce((total, item) => total + item.quantity, 0);
+    let total = 0;
+    const keranjang = this.cartService.getCart();
+
+    for (let i = 0; i < keranjang.length; i++) {
+      const item = keranjang[i];
+      total = total + item.quantity;
+    }
+
+    return total;
   }
 }
